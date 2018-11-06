@@ -7,12 +7,16 @@ public class grid:MonoBehaviour
     public GameObject _tile1; //set to floating tile object
     public Grid _grid; //set to self
 
+    public GameObject _tileConfigs; //set to tile configs world object
+
     float c_tileDimension=1.0098f; //the physical width/height of a tile
     Vector3 c_gridSpawnOffset=new Vector3(); //initialised later to half of the tile dimension,
                                              //so things spawn in the middle
 
     int[] c_gridDimension=new int[2]{10,10}; //width/height of the map, in number of tiles,
                                              //not physical dimension
+
+
 
     void Start()
     {
@@ -25,5 +29,14 @@ public class grid:MonoBehaviour
                 Instantiate(_tile1,_grid.CellToWorld(new Vector3Int(x,y,0))+c_gridSpawnOffset,Quaternion.Euler(-90,0,0));
             }
         }
+
+        Transform[] gridConfigs=_tileConfigs.transform.GetComponentsInChildren<Transform>();
+
+        for (int x=1;x<gridConfigs.Length;x++)
+        {
+            Debug.Log(_grid.WorldToCell(gridConfigs[x].transform.position));
+        }
+
+        _tileConfigs.SetActive(false);
     }
 }
