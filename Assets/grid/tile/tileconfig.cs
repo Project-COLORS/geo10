@@ -5,7 +5,7 @@ using UnityEngine;
 public class tileconfig:MonoBehaviour
 {
     [Tooltip("Tile height in gameplay units, not actual physical height")]
-    public int _tileHeight;
-    public Color _colour;
-    public bool _obstruction;
+    public int tileHeight;
+    public Color colour;
+    public bool obstruction;
 }
