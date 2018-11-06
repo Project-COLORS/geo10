@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class grid:MonoBehaviour
 {
-    public GameObject r_tile1; //set to floating tile object
-    public Grid r_grid; //set to self
+    public GameObject _tile1; //set to floating tile object
+    public Grid _grid; //set to self
 
     float c_tileDimension=1.0098f; //the physical width/height of a tile
     Vector3 c_gridSpawnOffset=new Vector3(); //initialised later to half of the tile dimension,
@@ -22,7 +22,7 @@ public class grid:MonoBehaviour
         {
             for (int y=0;y<c_gridDimension[1];y++)
             {
-                Instantiate(r_tile1,r_grid.CellToWorld(new Vector3Int(x,y,0))+c_gridSpawnOffset,Quaternion.Euler(-90,0,0));
+                Instantiate(_tile1,_grid.CellToWorld(new Vector3Int(x,y,0))+c_gridSpawnOffset,Quaternion.Euler(-90,0,0));
             }
         }
     }

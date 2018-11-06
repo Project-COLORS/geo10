@@ -5842,8 +5842,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa70e8a44572a954c95ad96696d3dfe7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  r_tile1: {fileID: 1367043063427246, guid: d2f79d1dabe5ee64486223f6ed60acb0, type: 2}
-  r_grid: {fileID: 1382525000}
+  _tile1: {fileID: 1367043063427246, guid: d2f79d1dabe5ee64486223f6ed60acb0, type: 2}
+  _grid: {fileID: 1382525000}
 --- !u!4 &1403844584 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: 5a2b10e31508d344cafaec19cc3820b8, type: 3}
@@ -6748,7 +6748,7 @@ Transform:
   m_GameObject: {fileID: 1584174432}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3.17, y: 1.92, z: -2.7367568}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 0.6}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
