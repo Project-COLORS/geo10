@@ -1786,6 +1786,7 @@ MonoBehaviour:
   _cam: {fileID: 806580051}
   _body: {fileID: 350012776}
   _cursorSprite: {fileID: 1584174435}
+  _inputcontrol: {fileID: 1815991306}
   keyFocus: 0
 --- !u!54 &350012776
 Rigidbody:
@@ -9115,6 +9116,7 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1815991305}
+  - component: {fileID: 1815991306}
   m_Layer: 0
   m_Name: inputcontrol
   m_TagString: Untagged
@@ -9135,6 +9137,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1815991306
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1815991304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93320e63b807578418ae1b0e8617c273, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _menu: {fileID: 895735261}
+  _cursor: {fileID: 350012775}
 --- !u!1001 &1820101740
 Prefab:
   m_ObjectHideFlags: 0
