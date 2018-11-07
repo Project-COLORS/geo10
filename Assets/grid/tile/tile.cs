@@ -5,6 +5,7 @@ using UnityEngine;
 public class tile:MonoBehaviour
 {
     public SpriteRenderer _spriteRenderer; //set to self
+    public GameObject currentCharacter;
 
     public void setColour(Color colour)
     {
