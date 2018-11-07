@@ -79,8 +79,8 @@ public class cursor:MonoBehaviour
         _body.velocity=t_moveVec;
 
         //performing camera rotations, based on the target cam angle
-        _camPositionsCurrent[0]=Mathf.Lerp(_camPositionsCurrent[0],5*c_camPositions[_currentcamPosition,0],.1f);
-        _camPositionsCurrent[1]=Mathf.Lerp(_camPositionsCurrent[1],5*c_camPositions[_currentcamPosition,1],.1f);
+        _camPositionsCurrent[0]=Mathf.Lerp(_camPositionsCurrent[0],5*c_camPositions[_currentcamPosition,0],.8f);
+        _camPositionsCurrent[1]=Mathf.Lerp(_camPositionsCurrent[1],5*c_camPositions[_currentcamPosition,1],.8f);
         _camPositionsCurrent[2]=Mathf.Lerp(_camPositionsCurrent[2],_targetcamYAngle,.1f);
 
         //performing camera position movement
@@ -92,6 +92,6 @@ public class cursor:MonoBehaviour
         _camAngle.y=_camPositionsCurrent[2];
 
         _cam.transform.eulerAngles=_camAngle;
-        _cam.transform.position=_posvec;
+        _cam.transform.position=Vector3.Lerp(_cam.transform.position,_posvec,.2f);
     }
 }

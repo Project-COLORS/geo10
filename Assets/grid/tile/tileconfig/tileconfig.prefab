@@ -52,8 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4884a7074a0ad2459411c72aa515c7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _tileHeight: 0
-  _colour: {r: 0, g: 0, b: 0, a: 0}
+  tileHeight: 0
+  colour: {r: 0, g: 0, b: 0, a: 0}
+  obstruction: 0
 --- !u!212 &212159547907513396
 SpriteRenderer:
   m_ObjectHideFlags: 1
