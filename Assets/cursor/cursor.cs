@@ -22,6 +22,10 @@ public class cursor:MonoBehaviour
     int _currentcamPosition=0;
     float[] _camPositionsCurrent=new float[3]{0,0,0};
 
+    //camera end
+
+    tile _previousTile;
+
     void Update()
     {
         //set cursor always point to camera
@@ -93,6 +97,12 @@ public class cursor:MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        collider.gameObject.GetComponent<tile>().setColour(Color.cyan);
+        if (_previousTile)
+        {
+            _previousTile.setColour(Color.clear);
+        }
+
+        _previousTile=collider.gameObject.GetComponent<tile>();
+        _previousTile.setColour(Color.cyan);
     }
 }
