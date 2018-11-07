@@ -10,7 +10,7 @@ public class character:MonoBehaviour
 
     void Start()
     {
-        move();
+        // move();
     }
 
     void Update()

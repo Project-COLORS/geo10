@@ -41,25 +41,29 @@ public class grid:MonoBehaviour
 
         //go over grid configs and apply them
         Transform[] gridConfigs=_tileConfigs.transform.GetComponentsInChildren<Transform>();
-        Vector3Int gridPos=new Vector3Int();
+        Vector3Int gridPos;
 
         for (int x=1;x<gridConfigs.Length;x++)
         {
             gridPos=_grid.WorldToCell(gridConfigs[x].transform.position);
 
-            _tilesTiles[gridPos[0],gridPos[1]].setColour(gridConfigs[x].GetComponent<tileconfig>().colour);
-            _tilesTiles[gridPos[0],gridPos[1]].isObstruction=gridConfigs[x].GetComponent<tileconfig>().obstruction;
-
+            _tilesTiles[gridPos[0],gridPos[1]].processTileConfig(gridConfigs[x].GetComponent<tileconfig>());
         }
 
         //go over characters and place them in their nearest tiles
         Transform[] characters=_charactersHolder.transform.GetComponentsInChildren<Transform>();
+        Vector3 charPos;
 
         for (int x=1;x<characters.Length;x++)
         {
             gridPos=_grid.WorldToCell(characters[x].transform.position);
 
             _tilesTiles[gridPos[0],gridPos[1]].currentCharacter=characters[x].gameObject;
+
+            charPos=_grid.CellToWorld(gridPos);
+            charPos+=c_gridSpawnOffset;
+            charPos.y+=-.5f+_tilesTiles[gridPos[0],gridPos[1]].tileHeight;
+            characters[x].transform.position=charPos;
         }
 
         _tileConfigs.SetActive(false);
