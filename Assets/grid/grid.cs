@@ -48,6 +48,7 @@ public class grid:MonoBehaviour
             gridPos=_grid.WorldToCell(gridConfigs[x].transform.position);
 
             _tilesTiles[gridPos[0],gridPos[1]].setColour(gridConfigs[x].GetComponent<tileconfig>().colour);
+            _tilesTiles[gridPos[0],gridPos[1]].isObstruction=gridConfigs[x].GetComponent<tileconfig>().obstruction;
 
         }
 
@@ -62,5 +63,36 @@ public class grid:MonoBehaviour
         }
 
         _tileConfigs.SetActive(false);
+    }
+
+    //begin a movecalc tile selection with the given position and spaces
+    public void moveCalc(Vector3 position,int spaces)
+    {
+        Vector3Int pos=_grid.WorldToCell(position);
+
+        moveCalc2(pos[0],pos[1],spaces);
+    }
+
+    void moveCalc2(int xpos,int ypos,int spaces)
+    {
+        //if out of move spaces or out of range
+        if (spaces<=0 || xpos<0 || ypos<0 || ypos>=c_gridDimension[1] || xpos>=c_gridDimension[0])
+        {
+            return;
+        }
+
+        if (_tilesTiles[xpos,ypos].isObstruction)
+        {
+            return;
+        }
+
+        spaces--;
+
+        _tilesTiles[xpos,ypos].markSelected();
+
+        moveCalc2(xpos+1,ypos,spaces);
+        moveCalc2(xpos-1,ypos,spaces);
+        moveCalc2(xpos,ypos+1,spaces);
+        moveCalc2(xpos,ypos-1,spaces);
     }
 }
