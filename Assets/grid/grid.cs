@@ -56,10 +56,13 @@ public class grid:MonoBehaviour
 
         for (int x=1;x<characters.Length;x++)
         {
+            //get the grid position the character should be in
             gridPos=_grid.WorldToCell(characters[x].transform.position);
 
+            //let the tile the char should be in know the char is in it
             _tilesTiles[gridPos[0],gridPos[1]].currentCharacter=characters[x].gameObject;
 
+            //snap the character to the tile
             charPos=_grid.CellToWorld(gridPos);
             charPos+=c_gridSpawnOffset;
             charPos.y+=-.5f+_tilesTiles[gridPos[0],gridPos[1]].tileHeight;
