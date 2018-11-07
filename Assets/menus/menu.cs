@@ -14,6 +14,8 @@ public class menu:MonoBehaviour
     float c_menuItemHeight=30f;
     float c_menuItemOffset=13f;
 
+    public bool keyFocus=false;
+
     void Start()
     {
         _menuItems=transform.GetComponentsInChildren<menuitem>();
@@ -35,11 +37,14 @@ public class menu:MonoBehaviour
 
     void keyControl()
     {
+        if (!keyFocus)
+        {
+            return;
+        }
+
         if (Input.GetButtonDown("confirm"))
         {
             _menuItems[_currentMenuItem].itemAction();
-            Debug.Log(_currentMenuItem);
-            Debug.Log(_menuCursor.rect);
         }
 
         else if (Input.GetButtonDown("down"))

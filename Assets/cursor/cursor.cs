@@ -8,6 +8,7 @@ public class cursor:MonoBehaviour
     public GameObject _cam; //set to maincam
     public Rigidbody _body; //set to SELF
     public Transform _cursorSprite; //set to the cursor child sprite
+    public inputcontrol _inputcontrol; //set to the global input control
 
     /*-- camera and movement related --*/
     Vector3 _moveVec=new Vector3();
@@ -21,10 +22,10 @@ public class cursor:MonoBehaviour
     float _targetcamYAngle=225f;
     int _currentcamPosition=0;
     float[] _camPositionsCurrent=new float[3]{0,0,0};
-
-    //camera end
+    /*-- camera/movement end --*/
 
     tile _previousTile;
+    public bool keyFocus=false;
 
     void Update()
     {
@@ -37,10 +38,22 @@ public class cursor:MonoBehaviour
 
     void inputProcessing()
     {
+        if (!keyFocus)
+        {
+            _moveVec.x=0;
+            _moveVec.z=0;
+            return;
+        }
+
         _moveVec.x=Input.GetAxisRaw("Vertical");
         _moveVec.z=Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("rotateleft"))
+        if (Input.GetButtonDown("confirm"))
+        {
+            _inputcontrol.setFocus("menu");
+        }
+
+        else if (Input.GetButtonDown("rotateleft"))
         {
             _targetcamYAngle-=90;
             if (_currentcamPosition>=3)
