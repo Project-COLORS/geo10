@@ -7,6 +7,7 @@ public class cursor:MonoBehaviour
     /*-- externals --*/
     public GameObject _cam; //set to maincam
     public Rigidbody _body; //set to SELF
+    public Transform _cursorSprite; //set to the cursor child sprite
 
     /*-- camera and movement related --*/
     Vector3 _moveVec=new Vector3();
@@ -21,15 +22,10 @@ public class cursor:MonoBehaviour
     int _currentcamPosition=0;
     float[] _camPositionsCurrent=new float[3]{0,0,0};
 
-    void Start()
-    {
-
-    }
-
     void Update()
     {
         //set cursor always point to camera
-        transform.forward=-_cam.transform.forward;
+        _cursorSprite.forward=-_cam.transform.forward;
 
         inputProcessing();
         positionUpdate();
@@ -86,12 +82,17 @@ public class cursor:MonoBehaviour
         //performing camera position movement
         _posvec=transform.position;
         _posvec.x+=_camPositionsCurrent[0];
-        _posvec.y+=4;
+        _posvec.y+=2;
         _posvec.z+=_camPositionsCurrent[1];
 
         _camAngle.y=_camPositionsCurrent[2];
 
         _cam.transform.eulerAngles=_camAngle;
         _cam.transform.position=Vector3.Lerp(_cam.transform.position,_posvec,.2f);
+    }
+
+    void OnTriggerEnter(Collider collider)
+    {
+        collider.gameObject.GetComponent<tile>().setColour(Color.cyan);
     }
 }
