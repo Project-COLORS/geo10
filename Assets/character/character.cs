@@ -7,6 +7,8 @@ public class character:MonoBehaviour
     public characterStat _stats; //set to own stats which should be a child
     public globalscontrol _globals;
 
+    public tile currentTile;
+
     string[] c_charMenuStrings=new string[]{"MOVE"};
 
     System.Action[] c_charMenuActions;
@@ -29,8 +31,8 @@ public class character:MonoBehaviour
 
     void move2(tile tile)
     {
-        Debug.Log("he");
-
+        _globals.grid.clearSelectedTiles();
+        _globals.grid.relocateChar(this,tile);
     }
 
     public void openCharMenu()

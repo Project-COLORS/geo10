@@ -22,7 +22,7 @@ public class grid:MonoBehaviour
 
     tile[,] _tilesTiles; //the actual tile component of the tile objects
 
-    Stack<tile> _selectedTiles=new Stack<tile>();
+    Stack<tile> _selectedTiles=new Stack<tile>(); //collected stack of selected tiles
 
     void Start()
     {
@@ -54,21 +54,13 @@ public class grid:MonoBehaviour
 
         //go over characters and place them in their nearest tiles
         character[] characters=_charactersHolder.transform.GetComponentsInChildren<character>();
-        Vector3 charPos;
 
         for (int x=0;x<characters.Length;x++)
         {
             //get the grid position the character should be in
             gridPos=_grid.WorldToCell(characters[x].transform.position);
 
-            //let the tile the char should be in know the char is in it
-            _tilesTiles[gridPos[0],gridPos[1]].currentCharacter=characters[x].transform.gameObject;
-
-            //snap the character to the tile
-            charPos=_grid.CellToWorld(gridPos);
-            charPos+=c_gridSpawnOffset;
-            charPos.y+=-.5f+_tilesTiles[gridPos[0],gridPos[1]].tileHeight;
-            characters[x].transform.position=charPos;
+            relocateChar(characters[x],_tilesTiles[gridPos[0],gridPos[1]]);
         }
 
         _tileConfigs.SetActive(false);
@@ -82,6 +74,7 @@ public class grid:MonoBehaviour
         moveCalc2(pos[0],pos[1],spaces);
     }
 
+    //2nd part of move calc
     void moveCalc2(int xpos,int ypos,int spaces)
     {
         //if out of move spaces or out of range
@@ -104,5 +97,27 @@ public class grid:MonoBehaviour
         moveCalc2(xpos-1,ypos,spaces);
         moveCalc2(xpos,ypos+1,spaces);
         moveCalc2(xpos,ypos-1,spaces);
+    }
+
+    //snap a character to a tile on the grid
+    public void relocateChar(character thecharacter,tile thetile)
+    {
+        thetile.currentCharacter=thecharacter.gameObject;
+
+        Vector3 charPos=thetile.transform.position;
+        charPos.y+=.3f+thetile.tileHeight;
+        thecharacter.transform.position=charPos;
+    }
+
+    //clear all selected tiles
+    public void clearSelectedTiles()
+    {
+        tile currentTile;
+        while (_selectedTiles.Count>0)
+        {
+            currentTile=_selectedTiles.Pop();
+
+            currentTile.unselect();
+        }
     }
 }
