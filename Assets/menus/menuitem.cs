@@ -8,7 +8,7 @@ public class menuitem:MonoBehaviour
     public Text thetext;
     public System.Action itemAction;
 
-    public void setItem(string itemText,System.Action newItemAction=null)
+    public void setItem(string itemText,System.Action newItemAction)
     {
         thetext.text=itemText;
         itemAction=newItemAction;

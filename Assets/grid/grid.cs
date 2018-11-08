@@ -51,16 +51,16 @@ public class grid:MonoBehaviour
         }
 
         //go over characters and place them in their nearest tiles
-        Transform[] characters=_charactersHolder.transform.GetComponentsInChildren<Transform>();
+        character[] characters=_charactersHolder.transform.GetComponentsInChildren<character>();
         Vector3 charPos;
 
-        for (int x=1;x<characters.Length;x++)
+        for (int x=0;x<characters.Length;x++)
         {
             //get the grid position the character should be in
             gridPos=_grid.WorldToCell(characters[x].transform.position);
 
             //let the tile the char should be in know the char is in it
-            _tilesTiles[gridPos[0],gridPos[1]].currentCharacter=characters[x].gameObject;
+            _tilesTiles[gridPos[0],gridPos[1]].currentCharacter=characters[x].transform.gameObject;
 
             //snap the character to the tile
             charPos=_grid.CellToWorld(gridPos);

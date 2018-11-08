@@ -9,6 +9,7 @@ public class cursor:MonoBehaviour
     public Rigidbody _body; //set to SELF
     public Transform _cursorSprite; //set to the cursor child sprite
     public inputcontrol _inputcontrol; //set to the global input control
+    public menu _menu;
 
     /*-- camera and movement related --*/
     Vector3 _moveVec=new Vector3();
@@ -50,7 +51,10 @@ public class cursor:MonoBehaviour
 
         if (Input.GetButtonDown("confirm"))
         {
-            _inputcontrol.setFocus("menu");
+            if (_previousTile.currentCharacter!=null)
+            {
+                _previousTile.currentCharacter.GetComponent<character>().openCharMenu();
+            }
         }
 
         else if (Input.GetButtonDown("rotateleft"))

@@ -4,22 +4,32 @@ using UnityEngine;
 
 public class character:MonoBehaviour
 {
-    public GameObject _cam; //set to the main camera
     public characterStat _stats; //set to own stats which should be a child
-    public grid _grid; //set to the main grid object
+    public globalscontrol _globals;
+
+    string[] c_charMenuStrings=new string[]{"MOVE"};
+
+    System.Action[] c_charMenuActions;
 
     void Start()
     {
-        // move();
+        c_charMenuActions=new System.Action[]{move};
     }
 
     void Update()
     {
-        transform.forward=-_cam.transform.forward;
+        transform.forward=-_globals.cam.transform.forward;
     }
 
     public void move()
     {
-        _grid.moveCalc(transform.position,_stats.moveSpaces);
+        _globals.grid.moveCalc(transform.position,_stats.moveSpaces);
+
+    }
+
+    public void openCharMenu()
+    {
+        _globals.inputcontrol.setFocus("menu");
+        _globals.menu.setActionMenu(c_charMenuStrings,c_charMenuActions);
     }
 }

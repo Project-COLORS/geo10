@@ -19,15 +19,7 @@ public class menu:MonoBehaviour
     void Start()
     {
         _menuItems=transform.GetComponentsInChildren<menuitem>();
-
-        setActionMenu(new string[]{"a","b"},new System.Action[2]{
-            ()=>{
-                Debug.Log("hey");
-            },
-            ()=>{
-                Debug.Log("hey2");
-            }
-        });
+        this.gameObject.SetActive(false);
     }
 
     void Update()
@@ -44,7 +36,7 @@ public class menu:MonoBehaviour
 
         if (Input.GetButtonDown("confirm"))
         {
-            _menuItems[_currentMenuItem].itemAction();
+            (_menuItems[_currentMenuItem].itemAction)();
         }
 
         else if (Input.GetButtonDown("down"))
@@ -58,8 +50,9 @@ public class menu:MonoBehaviour
         }
     }
 
-    void setActionMenu(string[] menuTexts,System.Action[] menuActions)
+    public void setActionMenu(string[] menuTexts,System.Action[] menuActions)
     {
+        this.gameObject.SetActive(true);
         _currentMaxMenuItems=menuTexts.Length;
 
         for (int x=0;x<_menuItems.Length;x++)
