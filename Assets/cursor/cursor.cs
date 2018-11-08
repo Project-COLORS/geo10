@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class cursor:MonoBehaviour
 {
@@ -28,16 +29,18 @@ public class cursor:MonoBehaviour
     tile _previousTile;
     public bool keyFocus=false;
 
+    Action<tile> _currentCommand;
+
     void Update()
     {
         //set cursor always point to camera
         _cursorSprite.forward=-_cam.transform.forward;
 
-        inputProcessing();
+        keyControl();
         positionUpdate();
     }
 
-    void inputProcessing()
+    void keyControl()
     {
         if (!keyFocus)
         {
@@ -51,7 +54,16 @@ public class cursor:MonoBehaviour
 
         if (Input.GetButtonDown("confirm"))
         {
-            if (_previousTile.currentCharacter!=null)
+            //if there is a command queued and the current tile is selected, call the
+            //command on the tile and dequeue the command
+            if (_currentCommand!=null && _previousTile.selected)
+            {
+                _currentCommand(_previousTile);
+                _currentCommand=null;
+            }
+
+            //if the current tile has a character, bring up its menu
+            else if (_previousTile.currentCharacter!=null)
             {
                 _previousTile.currentCharacter.GetComponent<character>().openCharMenu();
             }
@@ -121,5 +133,13 @@ public class cursor:MonoBehaviour
 
         _previousTile=collider.gameObject.GetComponent<tile>();
         _previousTile.setColour(Color.blue); //temporary float over tile effect
+    }
+
+    //set the cursor to execute the given command function the next
+    //time the cursor clicks on a selected tile. the command given
+    //take in a tile as an arg
+    public void commandQueue(Action<tile> command)
+    {
+        _currentCommand=command;
     }
 }

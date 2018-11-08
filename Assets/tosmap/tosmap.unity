@@ -4696,6 +4696,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 002648cb4d065644e80cd7e40ec1032a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _globals: {fileID: 1676808000}
   _menuCursor: {fileID: 424175479}
   keyFocus: 0
 --- !u!1001 &897815331
