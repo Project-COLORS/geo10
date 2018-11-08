@@ -137,13 +137,16 @@ public class cursor:MonoBehaviour
 
     void OnTriggerEnter(Collider collider)
     {
-        if (_previousTile)
+        if (collider.CompareTag("tile"))
         {
-            _previousTile.setColour(_previousTile.currentColour);
-        }
+            if (_previousTile)
+            {
+                _previousTile.setColour(_previousTile.currentColour);
+            }
 
-        _previousTile=collider.gameObject.GetComponent<tile>();
-        _previousTile.setColour(Color.blue); //temporary float over tile effect
+            _previousTile=collider.gameObject.GetComponent<tile>();
+            _previousTile.setColour(Color.blue); //temporary float over tile effect
+        }
     }
 
     //set the cursor to execute the given command function the next

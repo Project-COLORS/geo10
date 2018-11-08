@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 65628357401639458}
   m_Layer: 0
   m_Name: tile1_object
-  m_TagString: Untagged
+  m_TagString: tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -36,7 +36,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1367043063427246}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -7.0280046, y: -1.0013909, z: 1.5653801}
+  m_LocalPosition: {x: 0.34125257, y: -3.687078, z: -5.5527368}
   m_LocalScale: {x: 0.9, y: 0.90000004, z: 0.90000004}
   m_Children: []
   m_Father: {fileID: 0}
@@ -70,6 +70,8 @@ MonoBehaviour:
   tileHeight: 0
   isObstruction: 0
   currentColour: {r: 0, g: 0, b: 0, a: 0}
+  prevColour: {r: 0, g: 0, b: 0, a: 0}
+  selected: 0
 --- !u!212 &212967685512873624
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -1332,6 +1332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _stats: {fileID: 707448861}
   _globals: {fileID: 1676808000}
+  currentTile: {fileID: 0}
 --- !u!212 &267874624
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1782,11 +1783,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f26b09ac197b5a04997c251bb426ccd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cam: {fileID: 806580051}
   _body: {fileID: 350012776}
   _cursorSprite: {fileID: 1584174435}
-  _inputcontrol: {fileID: 1815991306}
-  _menu: {fileID: 895735261}
+  _globals: {fileID: 1676808000}
   keyFocus: 0
 --- !u!54 &350012776
 Rigidbody:
@@ -3899,6 +3898,77 @@ Transform:
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: de1db3bf3b9ee8f469530b13ba73c7aa, type: 3}
   m_PrefabInternal: {fileID: 531159498}
+--- !u!1 &776540525
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 5
+  m_Component:
+  - component: {fileID: 776540527}
+  - component: {fileID: 776540529}
+  - component: {fileID: 776540526}
+  - component: {fileID: 776540528}
+  m_Layer: 0
+  m_Name: laserranger
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!136 &776540526
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 776540525}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  m_Radius: 0.6
+  m_Height: 22.779568
+  m_Direction: 2
+  m_Center: {x: 0.04, y: 0.2, z: 10.99}
+--- !u!4 &776540527
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 776540525}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.293, y: 0.56, z: 0.78}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &776540528
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 776540525}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8b39f514106d3248bfaf74b69eac7ce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _globals: {fileID: 1676808000}
+--- !u!54 &776540529
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 776540525}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1001 &792051386
 Prefab:
   m_ObjectHideFlags: 0
