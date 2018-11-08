@@ -26,7 +26,7 @@ public class character:MonoBehaviour
     public void move()
     {
         _globals.grid.moveCalc(transform.position,_stats.moveSpaces);
-        _globals.cursor.commandQueue(move2);
+        _globals.cursor.commandQueue(move2,_globals.cursor.defaultCancel);
     }
 
     void move2(tile tile)

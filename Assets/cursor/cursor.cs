@@ -6,11 +6,9 @@ using System;
 public class cursor:MonoBehaviour
 {
     /*-- externals --*/
-    public GameObject _cam; //set to maincam
     public Rigidbody _body; //set to SELF
     public Transform _cursorSprite; //set to the cursor child sprite
-    public inputcontrol _inputcontrol; //set to the global input control
-    public menu _menu;
+    public globalscontrol _globals;
 
     /*-- camera and movement related --*/
     Vector3 _moveVec=new Vector3();
@@ -30,11 +28,12 @@ public class cursor:MonoBehaviour
     public bool keyFocus=false;
 
     Action<tile> _currentCommand;
+    Action _cancelCommand;
 
     void Update()
     {
         //set cursor always point to camera
-        _cursorSprite.forward=-_cam.transform.forward;
+        _cursorSprite.forward=-_globals.cam.transform.forward;
 
         keyControl();
         positionUpdate();
@@ -60,6 +59,7 @@ public class cursor:MonoBehaviour
             {
                 _currentCommand(_previousTile);
                 _currentCommand=null;
+                _cancelCommand=null;
             }
 
             //if the current tile has a character, bring up its menu
@@ -67,6 +67,17 @@ public class cursor:MonoBehaviour
             {
                 _previousTile.currentCharacter.GetComponent<character>().openCharMenu();
             }
+        }
+
+        else if (Input.GetButtonDown("cancel"))
+        {
+            if (_cancelCommand!=null)
+            {
+                _cancelCommand();
+            }
+
+            _currentCommand=null;
+            _cancelCommand=null;
         }
 
         else if (Input.GetButtonDown("rotateleft"))
@@ -120,8 +131,8 @@ public class cursor:MonoBehaviour
 
         _camAngle.y=_camPositionsCurrent[2];
 
-        _cam.transform.eulerAngles=_camAngle;
-        _cam.transform.position=Vector3.Lerp(_cam.transform.position,_posvec,.2f);
+        _globals.cam.transform.eulerAngles=_camAngle;
+        _globals.cam.transform.position=Vector3.Lerp(_globals.cam.transform.position,_posvec,.2f);
     }
 
     void OnTriggerEnter(Collider collider)
@@ -138,8 +149,15 @@ public class cursor:MonoBehaviour
     //set the cursor to execute the given command function the next
     //time the cursor clicks on a selected tile. the command given
     //take in a tile as an arg
-    public void commandQueue(Action<tile> command)
+    public void commandQueue(Action<tile> command,Action cancelCommand=null)
     {
         _currentCommand=command;
+        _cancelCommand=cancelCommand;
+    }
+
+    //default cancel function to provide to commandQueue
+    public void defaultCancel()
+    {
+        _globals.grid.clearSelectedTiles();
     }
 }

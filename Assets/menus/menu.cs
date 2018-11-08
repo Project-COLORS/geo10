@@ -36,7 +36,17 @@ public class menu:MonoBehaviour
             return;
         }
 
-        if (Input.GetButtonDown("confirm"))
+        if (Input.GetButtonDown("down"))
+        {
+            moveMenuCursor(1);
+        }
+
+        else if (Input.GetButtonDown("up"))
+        {
+            moveMenuCursor(-1);
+        }
+
+        else if (Input.GetButtonDown("confirm"))
         {
             //upon executing a menu item action, relinquish focus and close the menu
             //maybe change this later
@@ -45,14 +55,10 @@ public class menu:MonoBehaviour
             this.gameObject.SetActive(false);
         }
 
-        else if (Input.GetButtonDown("down"))
+        else if (Input.GetButtonDown("cancel"))
         {
-            moveMenuCursor(1);
-        }
-
-        else if (Input.GetButtonDown("up"))
-        {
-            moveMenuCursor(-1);
+            _globals.inputcontrol.setFocus("cursor");
+            this.gameObject.SetActive(false);
         }
     }
 
