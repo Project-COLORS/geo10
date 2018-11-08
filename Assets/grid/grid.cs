@@ -22,6 +22,8 @@ public class grid:MonoBehaviour
 
     tile[,] _tilesTiles; //the actual tile component of the tile objects
 
+    Stack<tile> _selectedTiles=new Stack<tile>();
+
     void Start()
     {
         //set the main tile array and spawn offset
@@ -96,6 +98,7 @@ public class grid:MonoBehaviour
         spaces--;
 
         _tilesTiles[xpos,ypos].markSelected();
+        _selectedTiles.Push(_tilesTiles[xpos,ypos]);
 
         moveCalc2(xpos+1,ypos,spaces);
         moveCalc2(xpos-1,ypos,spaces);

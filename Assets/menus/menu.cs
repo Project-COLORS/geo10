@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class menu:MonoBehaviour
 {
+    public globalscontrol _globals;
+
     menuitem[] _menuItems;
     int _currentMaxMenuItems;
     int _currentMenuItem=0;
@@ -36,7 +38,11 @@ public class menu:MonoBehaviour
 
         if (Input.GetButtonDown("confirm"))
         {
-            (_menuItems[_currentMenuItem].itemAction)();
+            //upon executing a menu item action, relinquish focus and close the menu
+            //maybe change this later
+            _globals.inputcontrol.setFocus("cursor");
+            _menuItems[_currentMenuItem].itemAction();
+            this.gameObject.SetActive(false);
         }
 
         else if (Input.GetButtonDown("down"))

@@ -10,10 +10,14 @@ public class tile:MonoBehaviour
     //config settings
     public float tileHeight;
     public bool isObstruction;
+    public Color currentColour;
+
+    public bool selected=false;
 
     public void processTileConfig(tileconfig config)
     {
         _spriteRenderer.color=config.colour;
+        currentColour=config.colour;
         isObstruction=config.obstruction;
         tileHeight=config.tileHeight;
 
@@ -30,5 +34,7 @@ public class tile:MonoBehaviour
     public void markSelected()
     {
         _spriteRenderer.color=Color.cyan;
+        currentColour=Color.cyan;
+        selected=true;
     }
 }

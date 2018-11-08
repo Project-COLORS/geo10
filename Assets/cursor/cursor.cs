@@ -116,10 +116,10 @@ public class cursor:MonoBehaviour
     {
         if (_previousTile)
         {
-            _previousTile.setColour(Color.clear);
+            _previousTile.setColour(_previousTile.currentColour);
         }
 
         _previousTile=collider.gameObject.GetComponent<tile>();
-        _previousTile.setColour(Color.cyan);
+        _previousTile.setColour(Color.blue); //temporary float over tile effect
     }
 }
