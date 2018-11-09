@@ -6,6 +6,7 @@ public class tile:MonoBehaviour
 {
     public SpriteRenderer _spriteRenderer; //set to self
     public GameObject currentCharacter;
+    public ColourStats _colourStats; //tile colour stats
 
     //config settings
     public float tileHeight;
@@ -14,6 +15,7 @@ public class tile:MonoBehaviour
     public Color prevColour;
 
     public bool selected=false;
+
 
     //process a tile config
     public void processTileConfig(tileconfig config)

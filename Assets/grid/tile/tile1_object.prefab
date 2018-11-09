@@ -21,6 +21,7 @@ GameObject:
   - component: {fileID: 4870307581651040}
   - component: {fileID: 212967685512873624}
   - component: {fileID: 114032494240668232}
+  - component: {fileID: 114064840492240174}
   - component: {fileID: 65628357401639458}
   m_Layer: 0
   m_Name: tile1_object
@@ -36,7 +37,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1367043063427246}
   m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.34125257, y: -3.687078, z: -5.5527368}
+  m_LocalPosition: {x: 1.6, y: -1.39, z: -5.82}
   m_LocalScale: {x: 0.9, y: 0.90000004, z: 0.90000004}
   m_Children: []
   m_Father: {fileID: 0}
@@ -67,11 +68,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _spriteRenderer: {fileID: 212967685512873624}
   currentCharacter: {fileID: 0}
+  _colourStats: {fileID: 114064840492240174}
   tileHeight: 0
   isObstruction: 0
   currentColour: {r: 0, g: 0, b: 0, a: 0}
   prevColour: {r: 0, g: 0, b: 0, a: 0}
   selected: 0
+--- !u!114 &114064840492240174
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1367043063427246}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95f2c6b9c3a53904296a9441b3225f8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  colourHp: 000000000000000000000000
+  maxDamage: 100
 --- !u!212 &212967685512873624
 SpriteRenderer:
   m_ObjectHideFlags: 1

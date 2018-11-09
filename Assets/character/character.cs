@@ -7,6 +7,7 @@ public class character:MonoBehaviour
     public characterStat _stats; //set to own stats which should be a child
     public globalscontrol _globals;
 
+    [System.NonSerialized]
     public tile currentTile;
 
     string[] c_charMenuStrings=new string[]{"MOVE"};
