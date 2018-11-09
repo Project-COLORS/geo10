@@ -9,6 +9,7 @@ public class cursor:MonoBehaviour
     public Rigidbody _body; //set to SELF
     public Transform _cursorSprite; //set to the cursor child sprite
     public globalscontrol _globals;
+    public Transform _cursorTile; //set to the cursor tile object that follows the cursor
 
     /*-- camera and movement related --*/
     Vector3 _moveVec=new Vector3();
@@ -24,9 +25,12 @@ public class cursor:MonoBehaviour
     float[] _camPositionsCurrent=new float[3]{0,0,0};
     /*-- camera/movement end --*/
 
-    tile _previousTile;
-    public bool keyFocus=false;
+    tile _previousTile; //the tile the cursor is over or was last over
 
+    [NonSerialized]
+    public bool keyFocus=false; //for keycontrol system
+
+    //command queue system
     Action<tile> _currentCommand;
     Action _cancelCommand;
 
@@ -43,6 +47,7 @@ public class cursor:MonoBehaviour
     {
         if (!keyFocus)
         {
+            //set the movement vectors to 0 when losing focus
             _moveVec.x=0;
             _moveVec.z=0;
             return;
@@ -109,6 +114,7 @@ public class cursor:MonoBehaviour
         }
     }
 
+    //actions taken to perform cursor and camera movements
     void positionUpdate()
     {
         //performing cursor movement, with adjustments based on the current camera position
@@ -139,13 +145,8 @@ public class cursor:MonoBehaviour
     {
         if (collider.CompareTag("tile"))
         {
-            if (_previousTile)
-            {
-                _previousTile.setColour(_previousTile.currentColour);
-            }
-
+            _cursorTile.position=collider.transform.position;
             _previousTile=collider.gameObject.GetComponent<tile>();
-            _previousTile.setColour(Color.blue); //temporary float over tile effect
         }
     }
 
