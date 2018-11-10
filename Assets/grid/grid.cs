@@ -42,7 +42,7 @@ public class grid:MonoBehaviour
         }
 
         //go over grid configs and apply them
-        Transform[] gridConfigs=_tileConfigs.transform.GetComponentsInChildren<Transform>();
+        tileconfig[] gridConfigs=_tileConfigs.transform.GetComponentsInChildren<tileconfig>();
         Vector3Int gridPos;
 
         for (int x=1;x<gridConfigs.Length;x++)
@@ -105,7 +105,7 @@ public class grid:MonoBehaviour
         thetile.currentCharacter=thecharacter.gameObject;
 
         Vector3 charPos=thetile.transform.position;
-        charPos.y+=.3f+thetile.tileHeight;
+        charPos.y=thecharacter.stats.charHeight+thetile.tileHeight;
         thecharacter.transform.position=charPos;
     }
 

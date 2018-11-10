@@ -35,7 +35,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1003294079818362}
   m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -1.9972925, y: -4.028498, z: 5.3272843}
+  m_LocalPosition: {x: -2.5415964, y: 1.0312424, z: 6.226222}
   m_LocalScale: {x: 0.7, y: 0.7, z: 0.7}
   m_Children: []
   m_Father: {fileID: 0}
@@ -54,7 +54,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tileHeight: 0
   obstruction: 0
-  colourHp: 000000000000000000000000
+  colourHp:
+  - 0
+  - 0
+  - 0
   maxDamage: 100
 --- !u!212 &212159547907513396
 SpriteRenderer:

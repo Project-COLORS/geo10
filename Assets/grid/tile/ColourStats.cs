@@ -11,7 +11,7 @@ public class ColourStats:MonoBehaviour
 
     //array of main element colours. move this out into
     //a global for each map eventually for variance
-    static Color[] c_colours=new Color[3]{
+    static Color[] c_colours=new Color[]{
         new Color32(199,30,61,1), //r
         new Color32(152,155,21,1), //g
         new Color32(51,169,193,1) //b
@@ -46,6 +46,11 @@ public class ColourStats:MonoBehaviour
         {
             if (colourHp[x]>0)
             {
+                if (x==1)
+                {
+                    Debug.Log("a");
+                }
+
                 Color setColour=new Color32(0,0,0,0);
                 setColour+=c_colours[x];
                 setColour.a=colourHp[x]/maxDamage;

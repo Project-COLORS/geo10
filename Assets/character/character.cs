@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class character:MonoBehaviour
 {
-    public characterStat _stats; //set to own stats which should be a child
+    public characterStat stats; //set to own stats which should be a child
     public globalscontrol _globals;
 
     [System.NonSerialized]
@@ -26,7 +26,7 @@ public class character:MonoBehaviour
 
     public void move()
     {
-        _globals.grid.moveCalc(transform.position,_stats.moveSpaces);
+        _globals.grid.moveCalc(transform.position,stats.moveSpaces);
         _globals.cursor.commandQueue(move2,_globals.cursor.defaultCancel);
     }
 
