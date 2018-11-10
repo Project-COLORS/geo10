@@ -90,7 +90,11 @@ public class grid:MonoBehaviour
 
         spaces--;
 
-        _tilesTiles[xpos,ypos].markSelected();
+        if (!_tilesTiles[xpos,ypos].cannotBeSelected)
+        {
+            _tilesTiles[xpos,ypos].markSelected();
+        }
+
         _selectedTiles.Push(_tilesTiles[xpos,ypos]);
 
         moveCalc2(xpos+1,ypos,spaces);

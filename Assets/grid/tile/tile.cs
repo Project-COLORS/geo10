@@ -12,6 +12,7 @@ public class tile:MonoBehaviour
     //config settings
     public float tileHeight;
     public bool isObstruction;
+    public bool cannotBeSelected;
 
     public bool selected=false; //if this tile has been marked as selected
 
@@ -20,6 +21,7 @@ public class tile:MonoBehaviour
     {
         isObstruction=config.obstruction;
         tileHeight=config.tileHeight;
+        cannotBeSelected=config.cannotBeSelected;
 
         colourStats.colourHp=config.colourHp;
         colourStats.maxDamage=config.maxDamage;
