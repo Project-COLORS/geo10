@@ -12,19 +12,18 @@ public class tile:MonoBehaviour
     //config settings
     public float tileHeight;
     public bool isObstruction;
-    public Color currentColour;
-    public Color prevColour;
 
     public bool selected=false; //if this tile has been marked as selected
 
     //process a tile config
     public void processTileConfig(tileconfig config)
     {
-        _spriteRenderer.color=config.colour;
-        currentColour=config.colour;
-        prevColour=config.colour;
         isObstruction=config.obstruction;
         tileHeight=config.tileHeight;
+
+        colourStats.colourHp=config.colourHp;
+        colourStats.maxDamage=config.maxDamage;
+        colourStats.setHpColour();
 
         Vector3 pos=transform.position;
         pos.y+=tileHeight;
@@ -41,15 +40,13 @@ public class tile:MonoBehaviour
     public void markSelected()
     {
         _spriteRenderer.color=Color.cyan;
-        currentColour=Color.cyan;
         selected=true;
     }
 
     //unmark this tile
     public void unselect()
     {
-        _spriteRenderer.color=prevColour;
-        currentColour=prevColour;
+        _spriteRenderer.color=colourStats.currentHpColour;
         selected=false;
     }
 }

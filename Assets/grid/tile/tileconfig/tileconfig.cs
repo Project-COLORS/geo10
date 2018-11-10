@@ -6,6 +6,7 @@ public class tileconfig:MonoBehaviour
 {
     [Tooltip("Tile height in gameplay units, not actual physical height")]
     public float tileHeight;
-    public Color colour;
     public bool obstruction;
+    public float[] colourHp=new float[]{0,0,0};
+    public float maxDamage;
 }
