@@ -45,7 +45,7 @@ public class grid:MonoBehaviour
         tileconfig[] gridConfigs=_tileConfigs.transform.GetComponentsInChildren<tileconfig>();
         Vector3Int gridPos;
 
-        for (int x=1;x<gridConfigs.Length;x++)
+        for (int x=0;x<gridConfigs.Length;x++)
         {
             gridPos=_grid.WorldToCell(gridConfigs[x].transform.position);
 

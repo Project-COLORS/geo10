@@ -46,11 +46,6 @@ public class ColourStats:MonoBehaviour
         {
             if (colourHp[x]>0)
             {
-                if (x==1)
-                {
-                    Debug.Log("a");
-                }
-
                 Color setColour=new Color32(0,0,0,0);
                 setColour+=c_colours[x];
                 setColour.a=colourHp[x]/maxDamage;
