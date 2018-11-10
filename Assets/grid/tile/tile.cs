@@ -5,8 +5,9 @@ using UnityEngine;
 public class tile:MonoBehaviour
 {
     public SpriteRenderer _spriteRenderer; //set to self
-    public GameObject currentCharacter;
-    public ColourStats _colourStats; //tile colour stats
+    public ColourStats colourStats; //set to set, tile colour stats
+
+    public GameObject currentCharacter; //what character is in this tile
 
     //config settings
     public float tileHeight;
@@ -14,8 +15,7 @@ public class tile:MonoBehaviour
     public Color currentColour;
     public Color prevColour;
 
-    public bool selected=false;
-
+    public bool selected=false; //if this tile has been marked as selected
 
     //process a tile config
     public void processTileConfig(tileconfig config)
