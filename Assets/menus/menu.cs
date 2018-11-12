@@ -62,10 +62,16 @@ public class menu:MonoBehaviour
         }
     }
 
+    //given an array of strings and function actions, spawn the menu
     public void setActionMenu(string[] menuTexts,System.Action[] menuActions)
     {
         this.gameObject.SetActive(true);
         _currentMaxMenuItems=menuTexts.Length;
+
+        //move the cursor the maximum amount to the end forcing it
+        //to the beginning. replace this later for something that
+        //makes more sense
+        moveMenuCursor(_currentMaxMenuItems);
 
         for (int x=0;x<_menuItems.Length;x++)
         {
@@ -82,6 +88,7 @@ public class menu:MonoBehaviour
         }
     }
 
+    //increment the cursor position by some value in menu item units
     void moveMenuCursor(int changePos)
     {
         _currentMenuItem+=changePos;

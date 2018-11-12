@@ -10,12 +10,13 @@ public class character:MonoBehaviour
     [System.NonSerialized]
     public tile currentTile;
 
-    string[] c_charMenuStrings=new string[]{"MOVE"};
+    protected string[] c_charMenuStrings;
 
-    System.Action[] c_charMenuActions;
+    protected System.Action[] c_charMenuActions;
 
     void Start()
     {
+        c_charMenuStrings=new string[]{"MOVE"};
         c_charMenuActions=new System.Action[]{move};
     }
 
