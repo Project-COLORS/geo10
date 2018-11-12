@@ -67,15 +67,16 @@ public class grid:MonoBehaviour
     }
 
     //begin a movecalc tile selection with the given position and spaces
-    public void moveCalc(Vector3 position,int spaces)
+    //give it selectCharacterTiles and it will select tiles with characters in them
+    public void moveCalc(Vector3 position,int spaces,bool selectCharacterTiles=false)
     {
         Vector3Int pos=_grid.WorldToCell(position);
 
-        moveCalc2(pos[0],pos[1],spaces);
+        moveCalc2(pos[0],pos[1],spaces,selectCharacterTiles);
     }
 
     //2nd part of move calc
-    void moveCalc2(int xpos,int ypos,int spaces)
+    void moveCalc2(int xpos,int ypos,int spaces,bool selectCharacterTiles)
     {
         //if out of move spaces or out of range
         if (spaces<0 || xpos<0 || ypos<0 || ypos>=c_gridDimension[1] || xpos>=c_gridDimension[0])
@@ -90,17 +91,17 @@ public class grid:MonoBehaviour
 
         spaces--;
 
-        if (!_tilesTiles[xpos,ypos].cannotBeSelected && _tilesTiles[xpos,ypos].currentCharacter==null)
+        if (!_tilesTiles[xpos,ypos].cannotBeSelected && (_tilesTiles[xpos,ypos].currentCharacter==null || selectCharacterTiles))
         {
             _tilesTiles[xpos,ypos].markSelected();
         }
 
         _selectedTiles.Push(_tilesTiles[xpos,ypos]);
 
-        moveCalc2(xpos+1,ypos,spaces);
-        moveCalc2(xpos-1,ypos,spaces);
-        moveCalc2(xpos,ypos+1,spaces);
-        moveCalc2(xpos,ypos-1,spaces);
+        moveCalc2(xpos+1,ypos,spaces,selectCharacterTiles);
+        moveCalc2(xpos-1,ypos,spaces,selectCharacterTiles);
+        moveCalc2(xpos,ypos+1,spaces,selectCharacterTiles);
+        moveCalc2(xpos,ypos-1,spaces,selectCharacterTiles);
     }
 
     //snap a character to a tile on the grid

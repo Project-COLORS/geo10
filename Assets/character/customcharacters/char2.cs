@@ -12,6 +12,18 @@ public class char2:character
 
     void attack()
     {
+        _globals.grid.moveCalc(transform.position,stats.attackRange,true);
+        _globals.cursor.commandQueue(attack2,_globals.cursor.defaultCancel);
+    }
 
+    void attack2(tile tile)
+    {
+        _globals.grid.clearSelectedTiles();
+        tile.colourStats.dealDamage(stats.colourType,stats.attack*2);
+
+        if (tile.currentCharacter)
+        {
+            tile.currentCharacter.GetComponent<character>().dealDamage(stats.attack);
+        }
     }
 }

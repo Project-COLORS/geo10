@@ -42,4 +42,10 @@ public class character:MonoBehaviour
         _globals.inputcontrol.setFocus("menu");
         _globals.menu.setActionMenu(c_charMenuStrings,c_charMenuActions);
     }
+
+    //damage calculation. change it later
+    public void dealDamage(int damage)
+    {
+        stats.hp-=damage;
+    }
 }

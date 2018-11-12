@@ -6,7 +6,7 @@ public class ColourStats:MonoBehaviour
 {
     public SpriteRenderer _spriteRenderer; //set to self
 
-    public float[] colourHp=new float[]{0,0,0}; //r,g,b
+    public float[] colourHp; //r,g,b
     public float maxDamage; //max damage that can be taken
 
     //array of main element colours. move this out into
@@ -25,17 +25,43 @@ public class ColourStats:MonoBehaviour
     //here eventually
     public void dealDamage(int colourType,int damage)
     {
-        colourHp[colourType]+=damage;
-
-        if (colourHp[colourType]<0)
+        int currentColour=0;
+        for (int x=0;x<colourHp.Length;x++)
         {
-            colourHp[colourType]=0;
+            if (colourHp[x]>0)
+            {
+                currentColour=x;
+                break;
+            }
         }
 
-        else if (colourHp[colourType]>maxDamage)
+        if (colourType==currentColour)
         {
-            colourHp[colourType]=maxDamage;
+            colourHp[currentColour]+=damage;
         }
+
+        else
+        {
+            colourHp[currentColour]-=damage;
+
+            if (colourHp[currentColour]<0)
+            {
+                colourHp[colourType]=colourHp[currentColour]*-1;
+                colourHp[currentColour]=0;
+            }
+        }
+
+        if (colourHp[currentColour]>maxDamage)
+        {
+            colourHp[currentColour]=maxDamage;
+        }
+
+        else if (colourHp[currentColour]<0)
+        {
+            colourHp[currentColour]=0;
+        }
+
+        setHpColour();
     }
 
     //calculate the colour hp. change this function later

@@ -716,6 +716,9 @@ MonoBehaviour:
   maxActions: 2
   charHeight: 0.4
   faction: 0
+  attackRange: 1
+  attack: 30
+  colourType: 0
 --- !u!1001 &149518701
 Prefab:
   m_ObjectHideFlags: 0
@@ -2246,6 +2249,11 @@ Prefab:
     - target: {fileID: 1432334139454220, guid: 12ce9d27884005b4491f7aa53b375f8a, type: 2}
       propertyPath: m_Name
       value: char1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114773423717173856, guid: 12ce9d27884005b4491f7aa53b375f8a,
+        type: 2}
+      propertyPath: attackRange
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 12ce9d27884005b4491f7aa53b375f8a, type: 2}
