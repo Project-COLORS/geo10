@@ -78,7 +78,7 @@ public class grid:MonoBehaviour
     void moveCalc2(int xpos,int ypos,int spaces)
     {
         //if out of move spaces or out of range
-        if (spaces<=0 || xpos<0 || ypos<0 || ypos>=c_gridDimension[1] || xpos>=c_gridDimension[0])
+        if (spaces<0 || xpos<0 || ypos<0 || ypos>=c_gridDimension[1] || xpos>=c_gridDimension[0])
         {
             return;
         }
@@ -90,7 +90,7 @@ public class grid:MonoBehaviour
 
         spaces--;
 
-        if (!_tilesTiles[xpos,ypos].cannotBeSelected)
+        if (!_tilesTiles[xpos,ypos].cannotBeSelected && _tilesTiles[xpos,ypos].currentCharacter==null)
         {
             _tilesTiles[xpos,ypos].markSelected();
         }
@@ -107,6 +107,13 @@ public class grid:MonoBehaviour
     public void relocateChar(character thecharacter,tile thetile)
     {
         thetile.currentCharacter=thecharacter.gameObject;
+
+        if (thecharacter.currentTile!=null)
+        {
+            thecharacter.currentTile.currentCharacter=null;
+        }
+
+        thecharacter.currentTile=thetile;
 
         Vector3 charPos=thetile.transform.position;
         charPos.y=thecharacter.stats.charHeight+thetile.tileHeight;

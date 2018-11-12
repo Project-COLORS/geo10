@@ -10,4 +10,5 @@ public class characterStat:MonoBehaviour
     public int actions;
     public int maxActions;
     public float charHeight; //height to increment off the floor ?
+    public int faction;
 }

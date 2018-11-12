@@ -68,7 +68,7 @@ public class cursor:MonoBehaviour
             }
 
             //if the current tile has a character, bring up its menu
-            else if (_previousTile.currentCharacter!=null)
+            else if (_currentCommand==null && _previousTile.currentCharacter!=null)
             {
                 _previousTile.currentCharacter.GetComponent<character>().openCharMenu();
             }
