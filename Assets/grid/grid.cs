@@ -132,4 +132,9 @@ public class grid:MonoBehaviour
             currentTile.unselect();
         }
     }
+
+    public tile getTile(int xpos,int ypos)
+    {
+        return _tilesTiles[xpos,ypos];
+    }
 }

@@ -34,12 +34,23 @@ public class cursor:MonoBehaviour
     Action<tile> _currentCommand;
     Action _cancelCommand;
 
+    //teleport system
+    bool _teleporting=false;
+    Vector3 _destination;
+    readonly float c_teleportCutoff=.3f;
+
+    void Start()
+    {
+        setTeleport(0,0);
+    }
+
     void Update()
     {
         //set cursor always point to camera
         _cursorSprite.forward=-_globals.cam.transform.forward;
 
         keyControl();
+        cursorTeleport();
         positionUpdate();
     }
 
@@ -119,10 +130,21 @@ public class cursor:MonoBehaviour
     {
         //performing cursor movement, with adjustments based on the current camera position
         _moveVec.Normalize();
-        t_moveVec.x=_moveVec[c_camPositions[_currentcamPosition,3]]*c_cursorspeed*c_camPositions[_currentcamPosition,5];
-        t_moveVec.z=_moveVec[c_camPositions[_currentcamPosition,4]]*c_cursorspeed*c_camPositions[_currentcamPosition,6];
-        t_moveVec=Quaternion.Euler(0,-45,0)*t_moveVec;
-        _body.velocity=t_moveVec;
+
+        if (!_teleporting)
+        {
+            t_moveVec.x=_moveVec[c_camPositions[_currentcamPosition,3]]*c_cursorspeed*c_camPositions[_currentcamPosition,5];
+            t_moveVec.z=_moveVec[c_camPositions[_currentcamPosition,4]]*c_cursorspeed*c_camPositions[_currentcamPosition,6];
+            t_moveVec=Quaternion.Euler(0,-45,0)*t_moveVec;
+            _body.velocity=t_moveVec;
+        }
+
+        else
+        {
+            t_moveVec.x=_moveVec.x*c_cursorspeed;
+            t_moveVec.z=_moveVec.z*c_cursorspeed;
+            _body.velocity=t_moveVec;
+        }
 
         //performing camera rotations, based on the target cam angle
         _camPositionsCurrent[0]=Mathf.Lerp(_camPositionsCurrent[0],5*c_camPositions[_currentcamPosition,0],.8f);
@@ -139,6 +161,29 @@ public class cursor:MonoBehaviour
 
         _globals.cam.transform.eulerAngles=_camAngle;
         _globals.cam.transform.position=Vector3.Lerp(_globals.cam.transform.position,_posvec,.2f);
+    }
+
+    void cursorTeleport()
+    {
+        if (!_teleporting)
+        {
+            return;
+        }
+
+        _moveVec.x=_destination.x-transform.position.x;
+        _moveVec.z=_destination.z-transform.position.z;
+
+        if (transform.position.x<_destination.x+c_teleportCutoff && transform.position.x>_destination.x-c_teleportCutoff
+            && transform.position.z<_destination.z+c_teleportCutoff && transform.position.z>_destination.z-c_teleportCutoff)
+        {
+            _teleporting=false;
+        }
+    }
+
+    void setTeleport(int xpos,int ypos)
+    {
+        _teleporting=true;
+        _destination=_globals.grid.getTile(xpos,ypos).transform.position;
     }
 
     void OnTriggerEnter(Collider collider)
