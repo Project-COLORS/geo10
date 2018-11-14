@@ -45,10 +45,9 @@ public class cursor:MonoBehaviour
     Action _cancelCommand;
 
     /*-- teleport system --*/
-    bool _teleporting=false;
-    bool _ignoreCameraOrientation=false;
-    Vector3 _destination;
-    readonly float c_teleportCutoff=.3f;
+    bool _teleporting=false; //if the cursor is in teleporting state
+    Vector3 _destination; //teleport destination
+    readonly float c_teleportCutoff=.1f; //when within this range of teleport destination, stop teleport
 
     void Update()
     {
@@ -73,12 +72,9 @@ public class cursor:MonoBehaviour
         _moveVec.x=Input.GetAxisRaw("Vertical");
         _moveVec.z=Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetKeyDown("8"))
-        {
-            incrementTeleport(1,0);
-        }
+        dpadControls();
 
-        else if (Input.GetButtonDown("confirm"))
+        if (Input.GetButtonDown("confirm"))
         {
             //if there is a command queued and the current tile is selected, call the
             //command on the tile and dequeue the command
@@ -136,13 +132,37 @@ public class cursor:MonoBehaviour
         }
     }
 
+    //sub function for keycontrol handling dpad
+    void dpadControls()
+    {
+        if (Input.GetButtonDown("dpadup"))
+        {
+            setTeleport(_previousTile.coords[0],_previousTile.coords[1]-1);
+        }
+
+        else if (Input.GetButtonDown("dpaddown"))
+        {
+            setTeleport(_previousTile.coords[0],_previousTile.coords[1]+1);
+        }
+
+        else if (Input.GetButtonDown("dpadright"))
+        {
+            setTeleport(_previousTile.coords[0]+1,_previousTile.coords[1]);
+        }
+
+        else if (Input.GetButtonDown("dpadleft"))
+        {
+            setTeleport(_previousTile.coords[0],_previousTile.coords[1]+1);
+        }
+    }
+
     //actions taken to perform cursor and camera movements
     void positionUpdate()
     {
         //performing cursor movement, with adjustments based on the current camera position
         _moveVec.Normalize();
 
-        if (!_ignoreCameraOrientation)
+        if (!_teleporting)
         {
             _body.velocity=moveVecTransform(_moveVec);
         }
@@ -204,7 +224,6 @@ public class cursor:MonoBehaviour
     void setTeleport(int xpos,int ypos)
     {
         _teleporting=true;
-        _ignoreCameraOrientation=true;
 
         _destination=_globals.grid.getTile(xpos,ypos).transform.position;
     }
@@ -214,11 +233,19 @@ public class cursor:MonoBehaviour
     void incrementTeleport(float xinc,float zinc)
     {
         _teleporting=true;
-        _ignoreCameraOrientation=true;
 
         Vector3 destination=transform.position;
+
+        // destination.x+=xinc*c_camPositions[_currentcamPosition,5];
+        // destination.z+=zinc*c_camPositions[_currentcamPosition,6];
+        // destination=Quaternion.Euler(0,-45,0)*destination;
+
         destination.x+=xinc;
         destination.z+=zinc;
+
+        destination.x=destination[c_camPositions[_currentcamPosition,3]]*c_camPositions[_currentcamPosition,5];
+        destination.z=destination[c_camPositions[_currentcamPosition,4]]*c_camPositions[_currentcamPosition,6];
+
         _destination=destination;
     }
 
