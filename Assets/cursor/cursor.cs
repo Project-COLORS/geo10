@@ -18,6 +18,14 @@ public class cursor:MonoBehaviour
 
     Vector3 _camAngle=new Vector3(30,0,0);
     readonly float c_cursorspeed=7.9f;
+    /*  for each camera position (4 positions):
+        0: multiplier for X position shift
+        1: multiplier for Z position shift
+        2: Y angle of camera (currently not being used)
+        3: horizontal control cursor movement axis. 0 for X, 2 for z
+        4: vertical control cursor movement axis
+        5: horizontal control invert. 1 for normal, -1 for inverted
+        6: vertical control invert*/
     readonly int [,] c_camPositions=new int[4,7]{
         {1,1,225,0,2,-1,1},{-1,1,135,2,0,-1,-1},{-1,-1,45,0,2,1,-1},{1,-1,-45,2,0,1,1}
     };
@@ -32,11 +40,11 @@ public class cursor:MonoBehaviour
     [NonSerialized]
     public bool keyFocus=false; //for keycontrol system
 
-    //command queue system
+    /*-- command queue system --*/
     Action<tile> _currentCommand;
     Action _cancelCommand;
 
-    //teleport system
+    /*-- teleport system --*/
     bool _teleporting=false;
     bool _ignoreCameraOrientation=false;
     Vector3 _destination;
@@ -136,10 +144,7 @@ public class cursor:MonoBehaviour
 
         if (!_ignoreCameraOrientation)
         {
-            t_moveVec.x=_moveVec[c_camPositions[_currentcamPosition,3]]*c_cursorspeed*c_camPositions[_currentcamPosition,5];
-            t_moveVec.z=_moveVec[c_camPositions[_currentcamPosition,4]]*c_cursorspeed*c_camPositions[_currentcamPosition,6];
-            t_moveVec=Quaternion.Euler(0,-45,0)*t_moveVec;
-            _body.velocity=t_moveVec;
+            _body.velocity=moveVecTransform(_moveVec);
         }
 
         else
@@ -164,6 +169,17 @@ public class cursor:MonoBehaviour
 
         _globals.cam.transform.eulerAngles=_camAngle;
         _globals.cam.transform.position=Vector3.Lerp(_globals.cam.transform.position,_posvec,.2f);
+    }
+
+    //do the camera transform to make a vector which represents velocity movement relative to the camera
+    Vector3 moveVecTransform(Vector3 moveVec)
+    {
+        Vector3 newVec=moveVec;
+        newVec.x=moveVec[c_camPositions[_currentcamPosition,3]]*c_cursorspeed*c_camPositions[_currentcamPosition,5];
+        newVec.z=moveVec[c_camPositions[_currentcamPosition,4]]*c_cursorspeed*c_camPositions[_currentcamPosition,6];
+        newVec=Quaternion.Euler(0,-45,0)*newVec;
+
+        return newVec;
     }
 
     //teleport update function, called every frame to move cursor towards destination
