@@ -9,12 +9,20 @@ public class tile:MonoBehaviour
 
     public GameObject currentCharacter; //what character is in this tile
 
+    public int[] coords;
+
     //config settings
     public float tileHeight;
     public bool isObstruction;
     public bool cannotBeSelected;
 
     public bool selected=false; //if this tile has been marked as selected
+
+    //initialise after instantiate
+    public void initialise(int xpos,int ypos)
+    {
+        coords=new int[]{xpos,ypos};
+    }
 
     //process a tile config
     public void processTileConfig(tileconfig config)

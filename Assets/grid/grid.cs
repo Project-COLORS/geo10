@@ -38,6 +38,7 @@ public class grid:MonoBehaviour
             {
                 _tiles[x,y]=Instantiate(_tile1,_grid.CellToWorld(new Vector3Int(x,y,0))+c_gridSpawnOffset,Quaternion.Euler(-90,0,0));
                 _tilesTiles[x,y]=_tiles[x,y].GetComponent<tile>();
+                _tilesTiles[x,y].initialise(x,y);
             }
         }
 

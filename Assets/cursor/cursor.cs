@@ -18,7 +18,9 @@ public class cursor:MonoBehaviour
 
     Vector3 _camAngle=new Vector3(30,0,0);
     readonly float c_cursorspeed=7.9f;
-    readonly int [,] c_camPositions=new int[4,7]{{1,1,225,0,2,-1,1},{-1,1,135,2,0,-1,-1},{-1,-1,45,0,2,1,-1},{1,-1,-45,2,0,1,1}};
+    readonly int [,] c_camPositions=new int[4,7]{
+        {1,1,225,0,2,-1,1},{-1,1,135,2,0,-1,-1},{-1,-1,45,0,2,1,-1},{1,-1,-45,2,0,1,1}
+    };
 
     float _targetcamYAngle=225f;
     int _currentcamPosition=0;
@@ -36,13 +38,9 @@ public class cursor:MonoBehaviour
 
     //teleport system
     bool _teleporting=false;
+    bool _ignoreCameraOrientation=false;
     Vector3 _destination;
     readonly float c_teleportCutoff=.3f;
-
-    void Start()
-    {
-        setTeleport(0,0);
-    }
 
     void Update()
     {
@@ -67,7 +65,12 @@ public class cursor:MonoBehaviour
         _moveVec.x=Input.GetAxisRaw("Vertical");
         _moveVec.z=Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("confirm"))
+        if (Input.GetKeyDown("8"))
+        {
+            incrementTeleport(1,0);
+        }
+
+        else if (Input.GetButtonDown("confirm"))
         {
             //if there is a command queued and the current tile is selected, call the
             //command on the tile and dequeue the command
@@ -131,7 +134,7 @@ public class cursor:MonoBehaviour
         //performing cursor movement, with adjustments based on the current camera position
         _moveVec.Normalize();
 
-        if (!_teleporting)
+        if (!_ignoreCameraOrientation)
         {
             t_moveVec.x=_moveVec[c_camPositions[_currentcamPosition,3]]*c_cursorspeed*c_camPositions[_currentcamPosition,5];
             t_moveVec.z=_moveVec[c_camPositions[_currentcamPosition,4]]*c_cursorspeed*c_camPositions[_currentcamPosition,6];
@@ -163,6 +166,7 @@ public class cursor:MonoBehaviour
         _globals.cam.transform.position=Vector3.Lerp(_globals.cam.transform.position,_posvec,.2f);
     }
 
+    //teleport update function, called every frame to move cursor towards destination
     void cursorTeleport()
     {
         if (!_teleporting)
@@ -180,10 +184,26 @@ public class cursor:MonoBehaviour
         }
     }
 
+    //set a grid coordinate as a destination
     void setTeleport(int xpos,int ypos)
     {
         _teleporting=true;
+        _ignoreCameraOrientation=true;
+
         _destination=_globals.grid.getTile(xpos,ypos).transform.position;
+    }
+
+    //do a teleport by incrementing x and z real world coordinates of the cursor
+    //(so basically a translation)
+    void incrementTeleport(float xinc,float zinc)
+    {
+        _teleporting=true;
+        _ignoreCameraOrientation=true;
+
+        Vector3 destination=transform.position;
+        destination.x+=xinc;
+        destination.z+=zinc;
+        _destination=destination;
     }
 
     void OnTriggerEnter(Collider collider)
